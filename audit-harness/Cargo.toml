@@ -1,0 +1,13 @@
+[package]
+name = "ratchet_audit_harness"
+version = "0.1.0"
+edition = "2021"
+description = "Phase 4 Deterministic 10-Gate Verification & sBPF Compute/Economic Harness for Ratchet-DLMM-DAMM"
+
+[lib]
+name = "ratchet_audit_harness"
+path = "src/lib.rs"
+
+[[bin]]
+name = "ratchet_audit_harness"
+path = "src/main.rs"

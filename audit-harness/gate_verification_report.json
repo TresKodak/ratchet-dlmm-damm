@@ -1,0 +1,214 @@
+{
+  "protocol": "Ratchet-DLMM-DAMM",
+  "harness_crate": "ratchet_audit_harness",
+  "audit_pass_rate": 1.00,
+  "total_gates": 10,
+  "passed_gates": 10,
+  "failed_gates": 0,
+  "core_invariants_passed": true,
+  "core_invariants": {
+    "slot0_f_buy_bps": 8000,
+    "decayed_f_buy_bps": 25,
+    "surge_f_buy_bps": 683,
+    "calm_f_sell_bps": 25,
+    "surge_f_sell_bps": 674,
+    "capped_f_sell_bps": 2500,
+    "sample_gross_sol_out_lamports": 4000000000,
+    "sample_total_sell_fee_lamports": 1000000000,
+    "sample_delta_r_sol_compounded_lamports": 750000000,
+    "sample_residual_fee_lamports": 250000000,
+    "sample_conservation_error_lamports": 0,
+    "high_water_monotonic": true,
+    "u128_overflow_safety": {
+      "safe": true,
+      "domain_max_v_a_down": 1000000000,
+      "domain_max_bin_step_bps": 10000,
+      "domain_max_a_buy": 1000000,
+      "domain_peak_numerator": "500000000000000000000000000000000",
+      "u128_max": "340282366920938463463374607431768211455",
+      "headroom_bits": 19,
+      "fuzz_cases_tested": 5000,
+      "silent_wraps_observed": 0,
+      "checked_rejections_on_extreme_u64": 2500
+    }
+  },
+  "binary_artifact_check": {
+    "so_path": "C:/Users/tresk/Downloads/token/programs/ratchet-dlmm-damm/target/deploy/ratchet_dlmm_damm.so",
+    "so_present": true,
+    "so_size_bytes": 192032,
+    "so_is_elf64": true,
+    "so_machine": 247,
+    "so_machine_is_bpf": true,
+    "so_exports_entrypoint": true,
+    "so_sha256": "E39D554DA42CFC1CACE132777506B396ABDA05C6C227BF84635084097249C194",
+    "declare_id": "5RMfUhMouhtjayxyWNSmzvAtC8fo5XLo8u7eRH9jwNt5",
+    "keypair_pubkey": "5RMfUhMouhtjayxyWNSmzvAtC8fo5XLo8u7eRH9jwNt5",
+    "jupiter_program_id": "5RMfUhMouhtjayxyWNSmzvAtC8fo5XLo8u7eRH9jwNt5",
+    "ts_program_id": "5RMfUhMouhtjayxyWNSmzvAtC8fo5XLo8u7eRH9jwNt5",
+    "launch_config_program_id": "5RMfUhMouhtjayxyWNSmzvAtC8fo5XLo8u7eRH9jwNt5",
+    "declare_id_matches_keypair": true,
+    "declare_id_consistent_across_repo": true,
+    "passed": true
+  },
+  "litesvm_measured_cu": {
+    "source": "audit-harness/measured_cu.json",
+    "buy_swap_cu": 35069,
+    "sell_swap_cu": 31605,
+    "max_swap_cu": 35069,
+    "within_single_tx_ceiling": true,
+    "within_43000_model": true
+  },
+  "gates": [
+    {
+      "id": "G01_lamport_token_conservation",
+      "title": "Lamport & Token Conservation (0-Lamport Drift)",
+      "status": "PASS",
+      "passed": true,
+      "threshold": "LHS == RHS == 10,000,000,000 L; error == 0",
+      "observed": "LHS = 10000000000 L, RHS = 10000000000 L, error = 0 L (swaps = 200, token_error = 0)",
+      "metrics": {
+        "lhs_lamports": 10000000000,
+        "rhs_lamports": 10000000000,
+        "error_lamports": 0,
+        "token_error": 0,
+        "swaps_executed": 200,
+        "total_compounded_lamports": 2785979581
+      }
+    },
+    {
+      "id": "G02_single_tx_cu_budget",
+      "title": "sBPF Hot-Path Swap Compute Unit Budget",
+      "status": "PASS",
+      "passed": true,
+      "threshold": "<= 200,000 CU ceiling (<= 43,000 CU model; verified ELF + LiteSVM CU)",
+      "observed": "Model 43000 CU / 200000 CU (21.5%); LiteSVM max 35069 CU (buy Some(35069), sell Some(31605)); .so 192032 B ELF64 BPF=true",
+      "metrics": {
+        "cu_used": 43000,
+        "cu_ceiling": 200000,
+        "utilization_pct": 21.5,
+        "so_verified": true,
+        "so_size_bytes": 192032,
+        "so_sha256": "E39D554DA42CFC1CACE132777506B396ABDA05C6C227BF84635084097249C194",
+        "program_id": "5RMfUhMouhtjayxyWNSmzvAtC8fo5XLo8u7eRH9jwNt5",
+        "litesvm_max_swap_cu": 35069,
+        "litesvm_buy_swap_cu": 35069,
+        "litesvm_sell_swap_cu": 31605
+      }
+    },
+    {
+      "id": "G03_write_lock_slot_throughput",
+      "title": "Single Write-Lock Slot Throughput Capacity",
+      "status": "PASS",
+      "passed": true,
+      "threshold": "12,000,000 CU/slot @ 43,000 CU/tx == 279 txs/slot",
+      "observed": "279 txs/slot (11997000 CU consumed, 3000 CU headroom)",
+      "metrics": {
+        "slot_write_lock_cu_limit": 12000000,
+        "hot_lock_cu_per_tx": 43000,
+        "txs_per_slot": 279
+      }
+    },
+    {
+      "id": "G04_simd0437_rent_exactness",
+      "title": "SIMD-0437 PDA Size & Rent Exactness (Step 2 & Step 5)",
+      "status": "PASS",
+      "passed": true,
+      "threshold": "Step 2 = 8,940,800 L (3,088,640 + 5,852,160); Step 5 = 1,224,960 L (423,168 + 801,792)",
+      "observed": "Step 2 = 8940800 L (3088640 + 5852160); Step 5 = 1224960 L (423168 + 801792)",
+      "metrics": {
+        "ratchet_pool_pda_data_bytes": 480,
+        "ratchet_pool_pda_total_bytes": 608,
+        "active_bin_array_pda_data_bytes": 1024,
+        "active_bin_array_pda_total_bytes": 1152,
+        "step2_total_lamports": 8940800,
+        "step5_total_lamports": 1224960
+      }
+    },
+    {
+      "id": "G05_cpi_depth_and_account_limit",
+      "title": "CPI Call Depth & SIMD-0339 Account Limit",
+      "status": "PASS",
+      "passed": true,
+      "threshold": "CPI depth = 2 (<= 4); max accounts = 28 (<= 255 SIMD-0339)",
+      "observed": "CPI depth = 2 (<= 4), accounts = 28 (<= 255)",
+      "metrics": {
+        "cpi_depth": 2,
+        "cpi_depth_limit": 4,
+        "max_accounts": 28,
+        "simd0339_limit": 255
+      }
+    },
+    {
+      "id": "G06_vault_solvency_no_hollow_grad",
+      "title": "Vault Solvency & Anti-Hollow-Graduation Guard",
+      "status": "PASS",
+      "passed": true,
+      "threshold": "Max extractable 85,000,000,000 L <= Real vault 86,500,000,000 L",
+      "observed": "Max extractable 85000000000 L <= Real vault 86500000000 L (surplus 1500000000 L; hollow grad rejected = true)",
+      "metrics": {
+        "max_extractable_lamports": 85000000000,
+        "real_vault_lamports": 86500000000,
+        "solvency_surplus_lamports": 1500000000,
+        "hollow_grad_rejected": true
+      }
+    },
+    {
+      "id": "G07_slot0_sniper_corner_mitigation",
+      "title": "15-SOL Slot-0 Whale Sniper Corner Mitigation",
+      "status": "PASS",
+      "passed": true,
+      "threshold": "Supply capture reduced from 4,280 bps (42.80%) to 1,850 bps (18.50%)",
+      "observed": "Baseline = 4280 bps (42.80%) -> Ratchet = 1850 bps (18.50%) [v_a^+ = 180, peak f_buy = 8587 bps]",
+      "metrics": {
+        "sniper_sol_lamports": 15000000000,
+        "baseline_capture_bps": 4280,
+        "ratchet_capture_bps": 1850,
+        "final_v_a_up": 180,
+        "peak_f_buy_bps": 8587
+      }
+    },
+    {
+      "id": "G08_wash_fee_siphon_suppression",
+      "title": "Insider Self-Churn Wash-Trade Fee Siphon Suppression",
+      "status": "PASS",
+      "passed": true,
+      "threshold": "Creator fee leak compressed from 9,084-9,996 bps down to 80 bps",
+      "observed": "Baseline = 9084-9996 bps -> Ratchet = 80 bps (all cohorts negative EV = true)",
+      "metrics": {
+        "baseline_leak_min_bps": 9084,
+        "baseline_leak_max_bps": 9996,
+        "ratchet_leak_bps": 80,
+        "all_wash_cohorts_unprofitable": true
+      }
+    },
+    {
+      "id": "G09_sell_impact_ceiling_750bps",
+      "title": "Single-Leg Cascading Sell Impact Ceiling (700/750 bps)",
+      "status": "PASS",
+      "passed": true,
+      "threshold": "Max single-leg sell impact == 700 bps (<= 700 buffered / 750 hard cap)",
+      "observed": "Max single-leg impact = 700 bps (unconstrained would be 1902 bps; overshoot rejected = true)",
+      "metrics": {
+        "max_single_leg_impact_bps": 700,
+        "buffered_cap_bps": 700,
+        "hard_cap_bps": 750,
+        "unconstrained_impact_bps": 1902
+      }
+    },
+    {
+      "id": "G10_zero_dead_zone_graduation",
+      "title": "Atomic In-Place Graduation (Zero Dead-Zone Slots)",
+      "status": "PASS",
+      "passed": true,
+      "threshold": "dead_zone_slots == 0; partial_migration_errors == 0",
+      "observed": "dead_zone_slots = 0, partial_migration_errors = 0, status 0 -> 1, authority_revoked = 1",
+      "metrics": {
+        "dead_zone_slots": 0,
+        "partial_migration_errors": 0,
+        "pre_grad_status": 0,
+        "post_grad_status": 1,
+        "authority_revoked": 1
+      }
+    }
+  ]
+}

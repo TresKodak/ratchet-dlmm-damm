@@ -1,0 +1,9 @@
+[package]
+name = "ratchet_jupiter_adapter"
+version = "0.1.0"
+edition = "2021"
+description = "Standalone zero-dependency Jupiter AMM adapter, Q64.64 quote simulator, 28-account resolver, and shadow mainnet replay for Ratchet-DLMM-DAMM"
+
+[lib]
+name = "ratchet_jupiter_adapter"
+path = "src/lib.rs"

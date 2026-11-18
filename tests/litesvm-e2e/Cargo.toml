@@ -1,0 +1,13 @@
+[package]
+name = "ratchet_litesvm_e2e"
+version = "0.1.0"
+edition = "2021"
+description = "End-to-end real Solana SVM (LiteSVM) integration tests for the compiled Ratchet-DLMM-DAMM sBPF program and SPL Token-2022."
+
+[dependencies]
+ratchet_dlmm_damm = { path = "../../programs/ratchet-dlmm-damm", features = ["no-entrypoint"] }
+bytemuck = { version = "1.14", features = ["derive", "min_const_generics"] }
+solana-sdk = { version = "~2.1.21", features = ["openssl-vendored"] }
+
+[dev-dependencies]
+litesvm = "0.5.0"

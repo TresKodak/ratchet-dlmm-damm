@@ -1,0 +1,32 @@
+# Rust & sBPF build artifacts
+target/
+**/target/
+**/*.rs.bk
+
+# Node / TypeScript dependencies & build output
+node_modules/
+**/node_modules/
+sdk/ts-client/dist/
+
+# Secret keypairs, live launch configs & environment secrets (NEVER commit)
+deploy/*-keypair.json
+*-keypair.json
+*.keypair.json
+deploy/launch.config.json
+deploy/launch.devnet.json
+deploy/devnet-e2e-report.json
+.env
+.env.*
+!.env.example
+
+# Machine-local Cargo overrides (e.g., Windows OPENSSL_SRC_PERL path)
+**/.cargo/config.toml
+!**/.cargo/config.toml.example
+
+# Public launch configuration template
+!deploy/launch.config.example.json
+
+# Launch receipts & OS clutter
+deploy/*-receipt*.json
+.DS_Store
+Thumbs.db

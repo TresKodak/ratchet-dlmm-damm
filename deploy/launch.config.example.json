@@ -1,0 +1,43 @@
+{
+  "token": {
+    "name": "Ratchet Example Token",
+    "symbol": "RATCHET",
+    "uri": "https://example.com/ratchet-token/metadata.json",
+    "decimals": 6,
+    "totalSupplyTokens": "1000000000"
+  },
+  "pool": {
+    "realVaultSol": "86.5",
+    "maxExtractableSol": "85.0",
+    "binStepBps": 25,
+    "aBuy": "50000",
+    "compoundingFeeBps": 7500,
+    "f0Bps": 8000,
+    "fMinBps": 25,
+    "fMaxSellBps": 2500,
+    "maxSellImpactBps": 700,
+    "gammaBps": 9000,
+    "fallbackTransferFeeBps": 0,
+    "fallbackMaximumFeeAtoms": "0",
+    "rentStep": "step2"
+  },
+  "network": {
+    "cluster": "mainnet-beta",
+    "rpcUrl": "https://api.mainnet-beta.solana.com",
+    "commitment": "confirmed"
+  },
+  "paths": {
+    "payerKeypairPath": "~/.config/solana/id.json",
+    "programId": "5RMfUhMouhtjayxyWNSmzvAtC8fo5XLo8u7eRH9jwNt5",
+    "programBinaryPath": "programs/ratchet-dlmm-damm/target/deploy/ratchet_dlmm_damm.so",
+    "programKeypairPath": "deploy/ratchet_dlmm_damm-keypair.json",
+    "mintKeypairPath": "deploy/mint-keypair.json",
+    "launchReceiptPath": "deploy/launch-receipt.json"
+  },
+  "jito": {
+    "enabled": false,
+    "blockEngineUrl": "https://mainnet.block-engine.jito.wtf/api/v1/bundles",
+    "tipLamports": 100000,
+    "tipAccount": "96gYZGLnJYVFmbjzopPSU6QiEV5fGqZNyN9nmNhvrZU5"
+  }
+}

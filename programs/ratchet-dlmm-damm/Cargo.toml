@@ -1,0 +1,15 @@
+[package]
+name = "ratchet_dlmm_damm"
+version = "0.1.0"
+edition = "2021"
+description = "Ratchet-DLMM-DAMM sBPF On-Chain Program & Core Math (Phases 1-3 + Mainnet-Ready Program)."
+
+[lib]
+crate-type = ["cdylib", "lib"]
+
+[features]
+no-entrypoint = []
+
+[dependencies]
+bytemuck = { version = "1.14", features = ["derive", "min_const_generics"] }
+solana-program = { version = "~2.1.21", default-features = false }

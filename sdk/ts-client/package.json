@@ -1,0 +1,34 @@
+{
+  "name": "@ratchet-dlmm-damm/ts-client",
+  "version": "0.1.0",
+  "description": "TypeScript client SDK for Ratchet-DLMM-DAMM fee previews, 28-account swap resolution, Token-2022 TransferFeeConfig fallback harvesting, and atomic genesis bundles",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "check": "tsc --noEmit",
+    "test": "tsc && node test.mjs",
+    "mainnet:preflight": "tsc && node dist/cli/preflight.js",
+    "mainnet:launch": "tsc && node dist/cli/launch.js",
+    "devnet:e2e": "tsc && node dist/cli/devnetE2e.js"
+  },
+  "dependencies": {
+    "@solana/spl-token": "^0.4.15",
+    "@solana/spl-token-metadata": "^0.1.6",
+    "@solana/web3.js": "^1.98.4"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.8.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

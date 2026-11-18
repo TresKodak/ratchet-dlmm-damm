@@ -1,0 +1,5 @@
+# Optional machine-local Cargo overrides for Windows contributors.
+# Copy to `.cargo/config.toml` (git-ignored) if `openssl-sys` cannot find `perl` in PATH:
+#
+# [env]
+# OPENSSL_SRC_PERL = "C:/path/to/strawberry-perl/perl/bin/perl.exe"
